@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="{% static 'css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static 'css/self.css'%}">
+     
+    <title> CRUD</title>
+
+
+</head>
+<body>
+    <div class="container-fluid">
+        
+        <div class="alert alert-primary text-center mt-4" role="alert">
+            <h2> CRUD FUNCTION </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="alert alert-warning text-center" role="alert">
+                    <h2> CRUD FUNCTION </h2>
+                </div>
+
+
+                {% comment %} <!-- Start comment: This is for rendering in the front end -->
+                <div class="ml-3">
+                    <form>
+                        <div class="form-group">
+                          <label for="addName">Add Name</label>
+                          <input type="text" class="form-control" id="addName" placeholder="Add Name">
+                        </div>
+                        <div class="form-group">
+                          <label for="addEmail">Add Email</label>
+                          <input type="text" class="form-control" id="addEmail" placeholder="Add Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="addPassword">Add Password</label>
+                            <input type="password" class="form-control" id="addPassword" placeholder="Add Password">
+                        </div>
+                        <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
+                      </form>
+                </div>
+                <!-- End comment: This is for rendering in the front end --> {% endcomment %}
+
+
+                <!-- Start comment: This is for rendering manually each form field-->
+
+                <div>
+                    <form>
+                        <div class="form-group">
+                          <label for="id_name">Add Name</label>
+                          {{form.name}}
+                        </div>
+                        <div class="form-group">
+                          <label for="addEmail">Add Email</label>
+                          {{form.email}}
+                        </div>
+                        <div class="form-group">
+                            <label for="addPassword">Add Password</label>
+                            {{form.password}}
+                        </div>
+                        <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
+                    </form>
+                </div>
+                <!-- End comment: This is for rendering manually each form field -->
+                
+{% comment %} 
+                <!-- Start comment: This is for rendering whole form -->
+                <div>
+                    <form>
+                        {{form.as_p}}
+                        <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
+                    </form>
+                    
+                </div>
+                
+
+                <!-- End comment: This is for rendering whole form -->
+
+
+                <!-- Start comment: This is for rendering form field with help text and everything -->
+
+                <div class="m-3">
+                    <form class="form-horizontal" method="post">{% csrf_token %}
+                        <fieldset>
+                            <legend>{{ title }}</legend>
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    <div class="control-group error">
+                                        <label class="control-label">{{ field.label }}</label> 
+                                        <div class="controls">{{ field }}
+                                            <span class="help-inline">
+                                                {% for error in  field.errors %}{{ error }}{% endfor %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="form-group">
+                                        <label class="control-label">{{ field.label }}</label> 
+                                        {{ field }}
+                                            {% if field.help_text %}
+                                                <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                                            {% endif %}
+                                        
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </fieldset>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" >Submit</button>
+                        </div>
+                    </form>
+                </div> {% endcomment %}
+                
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-6">
+                  
+            </div>
+        </div>
+       
+
+    </div>
+    <script src="{% static 'js/jquery.js'%}"></script>  
+    <script src="{% static 'js/popper.js'%}"></script>  
+    <script src="{% static 'js/all.min.js'%}"></script> 
+    <script src="{% static 'js/bootstrap.js'%}"></script>  
+</body>
+</html>

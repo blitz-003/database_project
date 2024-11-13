@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="{% static 'css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static 'css/self.css'%}">
+     
+    <title>Document</title>
+
+</head>
+<body>
+  <div class="container-fluid text-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-20">
+        <a class="navbar-brand" href="#">PriceHunter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          <form class="form-inline">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    
+</div>
+
+
+      <div class="container-fluid searchbox">
+        
+        <div class="row">
+          <div class="col-3">
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'sellerprofile' request.user.id %} role="button">Profile</a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'sellerupload' %} role="button">Upload</a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'sellerproductlist' %} role="button">My product list</a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'logoutview' %} role="button"> Log out </a>
+          </div>
+            
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-header bg-dark text-white text-center">Product Detail</div>
+                    <div class="row">
+                        <div class="col-4">
+                            
+                                <img src="https://picsum.photos/200" class="card-img-top" alt="...">
+                        
+                            
+                        </div>
+                        <div class="col-8">
+                           
+                            <div class="card-body">
+                              
+                                {% with my_tuple=productresult.0 %}
+                                    
+                                    <h5 class="card-title">Name: {{ my_tuple.1 }} </h5>
+                                    <p class="card-text">Origin: {{ my_tuple.2 }}</p>
+                                    <p class="card-text">Platform: {{ my_tuple.3 }}</p>
+                                
+                                
+                                {% with my_tuple_price=priceresult.0 %}
+                                    <p class="card-text">Price: {{my_tuple_price.2}}</p>
+                                {% endwith %}                   
+                                
+                                <button type="button" class="btn btn-outline-danger" id="bookmarkbutton"><i class="fa-regular fa-bookmark fa-beat-fade" style="color: #ff0000;"></i> Delete </button>
+
+
+                                {% comment %} modal  for price alert {% endcomment %}
+                                <!-- Button trigger modal -->
+                                <a href={% url 'sellerproductdetailupdate' my_tuple.0 %} class="btn btn-primary" role="button">Update</a>
+                                
+                                {% endwith %}
+                                {% comment %} <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">SET the price to alert</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <label for="formGroupExampleInput">Enter Price</label>
+                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter the price">
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>  {% endcomment %}
+
+
+
+                               {% comment %} <!-- Bootstrap Modal -->
+                              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <!-- Modal content goes here -->
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>  {% endcomment %}
+
+                              <!-- Bootstrap 4 Modal -->
+                              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <!-- Modal content goes here -->
+                                      <label for="alertprice">Enter Price</label>
+                                        <input type="text" class="form-control" id="alertprice" name="alertprice" placeholder="Enter the price">
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+
+                              {% comment %} <!-- Bootstrap and jQuery scripts -->
+                              <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+                              <!-- Your custom script to close the modal --> {% endcomment %}
+
+
+
+                              </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+   
+        </div>
+        <div class="row">
+        </div>
+        {% comment %} <div class="row">
+            <div class="col-3">
+                1 of 2
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Block level button</button>
+            
+            </div>
+            <div class="col-3">
+
+            </div>
+        </div>
+         {% endcomment %}
+      </div>
+
+      : 
+     
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"> 
+    <script src="{% static 'js/popper.js'%}"></script>  
+    <script src="{% static 'js/all.min.js'%}"></script> 
+    <script src="{% static 'js/bootstrap.js'%}"></script>  
+                              <!-- Bootstrap 4 and jQuery scripts -->
+                              
+
+                              <!-- Your custom script to close the modal -->
+                              <script>
+                                const csrftoken = document.cookie.match(/csrftoken=([^ ;]+)/)[1];
+                                $(document).ready(function () {
+                                  // Add an event listener to the "Save Changes" button
+                                  $("#saveChangesBtn").click(function () {
+                                    // Close the modal
+                                    let inputValue = $("#alertprice").val();
+                                    
+                                    console.log(inputValue)
+                                    let productid = {% with my_tuple=productresult.0 %}{{ my_tuple.0 }}{% endwith %};
+                                    console.log(productid);
+
+                                    $.ajax({
+                                      url: '/blog/ajaxpostforpricealert/',
+                                      type: "POST",
+                                      dataType: "json",
+                                      data: JSON.stringify({'productid': productid,'pricetoalert': inputValue,}),
+                                      headers: {
+                                        "X-Requested-With": "XMLHttpRequest",
+                                        "X-CSRFToken": csrftoken,  // don't forget to include the 'getCookie' function
+                                      },
+                                      success: function(response) {
+                                        console.log(response.message);  // Log the response from the server
+                                        // Update the DOM or perform other actions as needed
+                                      },
+                                    error: function(error) {
+                                        console.error('Error:', error);
+                                      }
+                                    });
+
+                                    
+
+
+                                    $("#myModal").modal("hide");
+                                  });
+
+
+                                  // button for bookmarkli{% static "" %}
+
+                                  $("#bookmarkbutton").click(function () {
+                                    // Close the modal
+                                    //let inputValue = $("#alertprice").val();
+                                    
+                                    //console.log(inputValue)
+                                    let productid = {% with my_tuple=productresult.0 %}{{ my_tuple.0 }}{% endwith %};
+                                    console.log(productid);
+
+                                    $.ajax({
+                                      url: '/blog/ajaxpostforbookmarklist/',
+                                      type: "POST",
+                                      dataType: "json",
+                                      data: JSON.stringify({'productid': productid,}),
+                                      headers: {
+                                        "X-Requested-With": "XMLHttpRequest",
+                                        "X-CSRFToken": csrftoken,  // don't forget to include the 'getCookie' function
+                                      },
+                                      success: function(response) {
+                                        console.log(response.message);  // Log the response from the server
+                                        // Update the DOM or perform other actions as needed
+                                      },
+                                    error: function(error) {
+                                        console.error('Error:', error);
+                                      }
+                                    });
+
+                                    
+
+
+                                    $("#myModal").modal("hide");
+                                  });
+
+
+                                });
+
+
+
+                                $(document).ready(function () {
+                                  // Add an event listener to the "Save Changes" button
+                                  
+                                });
+                              </script>
+</body>
+</html>

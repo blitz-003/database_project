@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="{% static 'css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static 'css/self.css'%}">
+     
+    <title>Document</title>
+
+</head>
+<body>
+  <div class="container-fluid text-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-20">
+        <a class="navbar-brand" href="#">PriceHunter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          <form class="form-inline">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    
+</div>
+
+
+      <div class="container searchbox">
+        
+        <div class="row">
+            <div class="col-3">
+                <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'buyerprofile' request.user.id %} role="button"> Profile </a>
+                <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'buyersearch' %} role="button"> Search </a>
+                <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'buyerbookmarklist' %} role="button"> BookmarkList</a>
+                <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'buyermessagelist' request.user.id %} role="button"> MessageList</a>
+                <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'logoutview' %} role="button"> Log out </a>  
+            </div>
+            
+            <div class="col-7">
+                <main role="main" class="container">
+                    {% comment %} <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                        <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"/><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
+                      <div class="lh-100">
+                        <h6 class="mb-0 text-white lh-100">Bootstrap</h6>
+                        <small>Since 2011</small>
+                      </div>
+                    </div> {% endcomment %}
+                  
+                    <div class="my-3 p-3 bg-white rounded shadow-sm">
+                        <h6 class="border-bottom border-gray pb-2 mb-0">Bookmark list</h6>
+                      
+                        
+                        
+                        {% for r in productresult %}
+                           
+                            {% with my_tuple_price=r.3 %}
+                            <a href={% url 'buyerproductdetail' my_tuple_price %}> 
+                            {% endwith %} 
+                           
+                            {% comment %} {% endcomment %}
+                                <div class="media text-muted pt-3">
+                                    <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                              
+                                    
+                                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                      <strong class="d-block text-gray-dark">ID</strong>
+                                      {{r.3}}
+                                    </p>
+                                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                        <strong class="d-block text-gray-dark">Name</strong>
+                                        {{r.4}}
+                                    </p>
+                                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                        <strong class="d-block text-gray-dark">Origin</strong>
+                                        {{r.5}}
+                                    </p>
+                                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                        <strong class="d-block text-gray-dark">Platform</strong>
+                                        {{r.6}}
+                                    </p>
+                                    
+                                </div>
+                               
+                              </a>
+                          
+                            {% endfor %}
+    
+                            
+                            
+                      
+                    
+                 
+                  
+                    
+                      
+                  </main>
+            
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+        <div class="row">
+        </div>
+        {% comment %} <div class="row">
+            <div class="col-3">
+                1 of 2
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Block level button</button>
+            
+            </div>
+            <div class="col-3">
+
+            </div>
+        </div>
+         {% endcomment %}
+      </div>
+
+    <script src="{% static 'js/jquery.js'%}"></script>  
+    <script src="{% static 'js/popper.js'%}"></script>  
+    <script src="{% static 'js/all.min.js'%}"></script> 
+    <script src="{% static 'js/bootstrap.js'%}"></script>  
+</body>
+</html>

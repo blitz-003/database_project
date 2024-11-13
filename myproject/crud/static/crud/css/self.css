@@ -1,0 +1,16 @@
+body{
+    background-color: rgb(75,74,74);
+    color: white;
+}
+
+.form-control,
+.form-control:focus{
+    background-color: rgb(83, 81, 81);
+}
+.jumbo-color{
+    background-color: rgb(83, 81, 81) ;
+}
+
+a {
+    text-decoration: none !important;
+}

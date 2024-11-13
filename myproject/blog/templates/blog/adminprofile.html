@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="{% static 'css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static 'css/self.css'%}">
+     
+    <title>Document</title>
+
+</head>
+<body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-20">
+        <a class="navbar-brand" href="#">PriceHunter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          <form class="form-inline">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+        
+    </div>
+      
+
+      <div class="container searchbox">
+        
+        <div class="row">
+          <div class="col-3">
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'adminprofile' %} role="button"> Profile </a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'adminlistofbuyers' %} role="button"> List of Users </a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'adminproductlist'  %} role="button"> List of Products</a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'admininsights' %} role="button"> Insights</a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'groupby' %} role="button"> Group by</a>
+            <a class="btn btn-info btn-lg btn-block mt-3" href={% url 'logoutview' %} role="button"> Log out </a>  
+        </div>
+            <div class="col-2">
+            </div>
+            <div class="col-7">
+                
+                    <h1 class="display-5 text-center border-bottom border-gray pb-2 mb-0">Profile </h1>
+                    <form action="{% url 'buyersearch' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          
+
+                          <h3>Name: Admin </h3>
+                          <h3>Type: Admin </h3>
+                      </form>
+                
+               
+            
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+        <div class="row">
+        </div>
+        {% comment %} <div class="row">
+            <div class="col-3">
+                1 of 2
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Block level button</button>
+            
+            </div>
+            <div class="col-3">
+
+            </div>
+        </div>
+         {% endcomment %}
+      </div>
+
+    <script src="{% static 'js/jquery.js'%}"></script>  
+    <script src="{% static 'js/popper.js'%}"></script>  
+    <script src="{% static 'js/all.min.js'%}"></script> 
+    <script src="{% static 'js/bootstrap.js'%}"></script>  
+</body>
+</html>
